@@ -43,11 +43,67 @@ namespace Address_Book_ADO
                 }
                 else
                 {
-                    Console.WriteLine("Records not found in Database.");
+                    Console.WriteLine("No records found in Database.");
                 }
                 reader.Close();
                 connect.Close();
 
+            }
+        }
+
+        //UC2 Update record in database
+        public void UpdateRecord()
+        {
+            SqlConnection connect = new SqlConnection(connectionString);
+            try
+            {
+                using (connect)
+                {
+                    Console.WriteLine("Enter the name of Person whose contact has to be updated:");
+                    string name = Console.ReadLine();
+                    Console.WriteLine("Enter new phone Number:");
+                    string phone = Console.ReadLine();
+                    connect.Open();
+                    string query = "update Address_Book set Phone_Number =" + phone + "where FirstName='" + name + "'";
+                    SqlCommand command = new SqlCommand(query, connect);
+                    if (command.ExecuteNonQuery() != 0)
+                    {
+                        Console.WriteLine("Records updated successfully!");
+                        return;
+                    }
+                    Console.WriteLine("Not Updated!!!");
+                    connect.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        //To Delete Data
+        public void DeleteData(string name)
+        {
+            try
+            {
+                using (SqlConnection Connection = new SqlConnection(connectionString))
+                {
+                    string sql = "DELETE FROM Address_Book WHERE FirstName = '" + name + "'";
+                    SqlCommand Command = new SqlCommand(sql, Connection);
+                    Connection.Open();
+                    var result = Command.ExecuteNonQuery();
+                    Connection.Close();
+                    if (result != 0)
+                    {
+                        Console.WriteLine("Data is Deleted Successfully");
+                        return;
+                    }
+                    Console.WriteLine("Data is not Deleted!!");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
     }
