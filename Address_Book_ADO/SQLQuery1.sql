@@ -24,3 +24,17 @@ Insert into Address_Book values('krishnan','Nair','Beach Road,azhikkal','kannur'
 ('John','Thomas','Whites Road','Chennai','Tamil nadu',600002,'8145007766','john@gm.com'),
 ('Rishikesh','Raj','Besant Nagar','Chennai','Tamil Nadu',670011,'8899004556','rishi@gm.com');
 
+GO
+CREATE OR ALTER PROCEDURE [dbo].[spAddress_Book]
+(@FIRST_NAME VARCHAR(20),
+@LAST_NAME VARCHAR(20),
+@ADDRESS VARCHAR(100),
+@CITY VARCHAR(20),
+@STATE VARCHAR(20),
+@ZIP_CODE INT,
+@PHONE_NUMBER VARCHAR(12),
+@EMAIL VARCHAR(20))
+AS
+BEGIN
+INSERT INTO ADDRESS_BOOK VALUES(@FIRST_NAME,@LAST_NAME,@ADDRESS,@CITY,@STATE,@ZIP_CODE,@PHONE_NUMBER,@EMAIL)
+END
